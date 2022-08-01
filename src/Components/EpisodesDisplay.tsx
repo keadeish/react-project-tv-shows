@@ -1,29 +1,26 @@
 interface IEpisode {
-  id: number;
-  url: string;
   name: string;
   season: number;
-  number: number;
-  type: string;
-  airdate: string;
-  airtime: string;
-  airstamp: string;
-  runtime: number;
   image: {
     medium: string;
     original: string;
   };
   summary: string;
-  _links: { self: { href: string } };
 }
 
 //   let propsOfEpisodes : IEpisode[]
 
 function EpisodesDisplay(props: IEpisode): JSX.Element {
+  const removeParagraphTag = (inputString: string): string => {
+    const summaryString = inputString.replace("<", "");
+
+    return summaryString;
+  };
   return (
     <>
-      <h1>Episode Names</h1>
-      <p>{props.name}</p>
+      <h1>{props.name} - S01E01</h1>
+      <img src={props.image.medium} alt=""/>
+      <p>{removeParagraphTag(props.summary)}</p>
     </>
   );
 }

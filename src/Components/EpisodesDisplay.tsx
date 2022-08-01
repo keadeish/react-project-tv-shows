@@ -12,7 +12,11 @@ interface IEpisode {
 
 function EpisodesDisplay(props: IEpisode): JSX.Element {
   const removeParagraphTag = (inputString: string): string => {
-    const summaryString = inputString.replace("<", "");
+    const summaryString = inputString
+      .replace(/<p>/g, "")
+      .replace(/[</p>]/g, "")
+      .replace(/<b>/g, "")
+      .replace(/[</b>]/g, "");
 
     return summaryString;
   };

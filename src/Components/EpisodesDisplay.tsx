@@ -19,7 +19,7 @@ function EpisodesDisplay(props: IEpisode): JSX.Element {
   return (
     <>
       <h1>{props.name} - S01E01</h1>
-      <img src={props.image.medium} alt=""/>
+      <img src={props.image.medium} alt="" />
       <p>{removeParagraphTag(props.summary)}</p>
     </>
   );

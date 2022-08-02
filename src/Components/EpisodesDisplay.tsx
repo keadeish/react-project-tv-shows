@@ -27,12 +27,12 @@ function EpisodesDisplay(props: IEpisode): JSX.Element {
       .replace(/[/]/g, "")
       .replace(/<p>*/g, "")
       .replace(/<b>*/g, "");
-
     return summaryString;
   };
 
   return (
     <>
+
       <h1>
         {props.name} - {episodeCode(props.season, props.number)}
       </h1>

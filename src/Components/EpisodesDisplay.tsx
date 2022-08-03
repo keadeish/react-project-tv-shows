@@ -32,7 +32,6 @@ function EpisodesDisplay(props: IEpisode): JSX.Element {
 
   return (
     <>
-
       <h1>
         {props.name} - {episodeCode(props.season, props.number)}
       </h1>

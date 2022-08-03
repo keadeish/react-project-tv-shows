@@ -10,11 +10,9 @@ function EpisodesDisplay(props: IEpisode): JSX.Element {
       <h1>
         {props.name} - {episodeCode(props.season, props.number)}
       </h1>
-      <img src={props.image ? (props.image.medium) : ("")} alt="" />
-         <p> {props.summary ? (removeParagraphTag(props.summary)): ("")}</p>
+      <img src={props.image ? props.image.medium : ""} alt="" />
+      <p> {props.summary ? removeParagraphTag(props.summary) : ""}</p>
     </>
   );
 }
 export default EpisodesDisplay;
-
-

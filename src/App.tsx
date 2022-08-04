@@ -1,11 +1,24 @@
-import episodes from "./episodes.json";
+// import episodes from "./episodes.json";
 import EpisodesDisplay from "./Components/EpisodesDisplay";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isMatching } from "./utils/matchingEpisodes";
+import { IEpisode } from "./utils/interface";
 
 function App(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState("");
-  const filteredEpisodes = isMatching(episodes, searchTerm);
+  console.log("inside the App function");
+  const [episodesData, setEpisodesData] = useState<IEpisode[]>([]);
+  useEffect(() => {
+    const getAndStoreDataFromApi = async () => {
+      const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
+
+      const fetchedEpisodes: IEpisode[] = await response.json();
+      setEpisodesData(fetchedEpisodes);
+    };
+    getAndStoreDataFromApi();
+  }, []);
+  const filteredEpisodes = isMatching(episodesData, searchTerm);
+
   return (
     <>
       <div>
@@ -17,7 +30,7 @@ function App(): JSX.Element {
         />
         <p>
           {" "}
-          Displaying {filteredEpisodes.length}/{episodes.length} episodes{" "}
+          Displaying {filteredEpisodes.length}/{episodesData.length} episodes{" "}
         </p>
       </div>
       <div>

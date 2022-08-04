@@ -8,23 +8,23 @@ function App(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState("");
   console.log("inside the App function");
   const [episodesData, setEpisodesData] = useState<IEpisode[]>([]);
-  // function fetchEpisodesFromURL(episodeID : number) {
+  function FetchEpisodesFromURL(event : any) {
+    console.log(`https://api.tvmaze.com/shows/${event.target.value}/episode`)
     
   useEffect(() => {
     const getAndStoreDataFromApi = async () => {
-      const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
-
+      const response = await fetch("`https://api.tvmaze.com/shows/${event.target.value}/episode`");
       const fetchedEpisodes: IEpisode[] = await response.json();
       setEpisodesData(fetchedEpisodes);
     };
     getAndStoreDataFromApi();
   }, []);
-// }
+}
 const filteredEpisodes = isMatching(episodesData, searchTerm);
   return (
     <>
       <div>
-      <select /*onClick={()=>(fetchEpisodesFromURL)}*/>
+      <select onChange={FetchEpisodesFromURL}>
      {episodes.map((show) => (
     <option key ={show.id} value={show.id}>{show.name}</option>
     ))}

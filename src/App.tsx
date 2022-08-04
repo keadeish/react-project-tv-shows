@@ -1,4 +1,5 @@
 import episodes from "./episodes.json";
+import simpsons from "./simpsons.json";
 import EpisodesDisplay from "./Components/EpisodesDisplay";
 import { useEffect, useState } from "react";
 import { isMatching } from "./utils/matchingEpisodes";
@@ -9,20 +10,21 @@ function App(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState("");
   console.log("inside the App function");
   const [episodesData, setEpisodesData] = useState<IEpisode[]>([]);
-  
+  useEffect(() => {
+    const getAndStoreDataFromApi2 = async () => {
+      const response2 = await fetch(`https://api.tvmaze.com/shows/311/episodes`);
+      const fetchedEpisodes2: IEpisode[] = await response2.json();
+      setEpisodesData(fetchedEpisodes2);
+    };
+    getAndStoreDataFromApi2();
+  }, []);
+
+
   function FetchEpisodesFromURL(event : any) {
     // const URLchosen = `https://api.tvmaze.com/shows/${event.target.value}/episode`\
-    const [searchTerm2, setSearchTerm2] = useState("");
-
-    const [episodesData2, setEpisodesData2] = useState<IEpisode[]>([]);
-    useEffect(() => {
-      const getAndStoreDataFromApi2 = async () => {
-        const response2 = await fetch(`https://api.tvmaze.com/shows/311/episodes`);
-        const fetchedEpisodes2: IEpisode[] = await response2.json();
-        setEpisodesData(fetchedEpisodes2);
-      };
-      getAndStoreDataFromApi2();
-    }, []);
+  
+    
+  
 
 }
 const filteredEpisodes = isMatching(episodesData, searchTerm);

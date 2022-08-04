@@ -1,45 +1,44 @@
 import episodes from "./episodes.json";
-import simpsons from "./simpsons.json";
 import EpisodesDisplay from "./Components/EpisodesDisplay";
 import { useEffect, useState } from "react";
 import { isMatching } from "./utils/matchingEpisodes";
 import { IEpisode } from "./utils/interface";
-import { constants } from "buffer";
 
 function App(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState("");
   console.log("inside the App function");
   const [episodesData, setEpisodesData] = useState<IEpisode[]>([]);
+
+
   useEffect(() => {
-    const getAndStoreDataFromApi2 = async () => {
-      const response2 = await fetch(`https://api.tvmaze.com/shows/311/episodes`);
-      const fetchedEpisodes2: IEpisode[] = await response2.json();
-      setEpisodesData(fetchedEpisodes2);
+    const getAndStoreDataFromApi = async () => {
+      const response = await fetch(`https://api.tvmaze.com/shows/${episodes[0].id}/episodes`);
+      const fetchedEpisodes: IEpisode[] = await response.json();
+      setEpisodesData(fetchedEpisodes);
     };
-    getAndStoreDataFromApi2();
+    getAndStoreDataFromApi();
   }, []);
 
 
-  function FetchEpisodesFromURL(event : any) {
-    // const URLchosen = `https://api.tvmaze.com/shows/${event.target.value}/episode`\
-  
-    
-  
+  function handleOnChange(e:  React.ChangeEvent<HTMLSelectElement>) {
+    setSearchTerm(e.target.value);
 
+ 
 }
 const filteredEpisodes = isMatching(episodesData, searchTerm);
   return (
     <>
       <div>
-      <select onChange={FetchEpisodesFromURL}>
+      <select onChange={handleOnChange}>
      {episodes.map((show) => (
     <option key ={show.id} value={show.id}>{show.name}</option>
+    
     ))}
     </select>
         <input
           value={searchTerm}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
+          onChange={(event) => {
+            setSearchTerm(event.target.value);
           }}
         />
         <p>
@@ -51,6 +50,11 @@ const filteredEpisodes = isMatching(episodesData, searchTerm);
         {filteredEpisodes.map((element, index) => (
           <EpisodesDisplay key={index} {...element} />
         ))}
+      </div>
+      <div>
+        <p>"https://api.tvmaze.com/shows/{parseFloat(searchTerm)}/episodes"</p>
+       
+       
       </div>
 
       <footer>

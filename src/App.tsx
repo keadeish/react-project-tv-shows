@@ -36,6 +36,8 @@ function App(): JSX.Element {
     // }, []);
   }
 
+    setSearchTerm(e.target.value);
+  }
   const filteredEpisodes = isMatching(episodesData, searchTerm);
   return (
     <>
@@ -47,7 +49,6 @@ function App(): JSX.Element {
             </option>
           ))}
         </select>
-
         <input
           value={searchTerm}
           onChange={(e) => {

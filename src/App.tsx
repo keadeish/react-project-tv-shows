@@ -37,9 +37,10 @@ function App(): JSX.Element {
   });
   const filteredEpisodes = isMatching(episodesData, searchTerm);
 
-  async function handleOnChangeEpisode(e: React.ChangeEvent<HTMLSelectElement>) {
-    setSearchTerm(e.target.value)
-
+  async function handleOnChangeEpisode(
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) {
+    setSearchTerm(e.target.value);
   }
   return (
     <>

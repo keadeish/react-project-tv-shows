@@ -33,7 +33,7 @@ function App(): JSX.Element {
           Displaying {filteredEpisodes.length}/{episodesData.length} episodes{" "}
         </p>
       </div>
-      <div>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
         {filteredEpisodes.map((element, index) => (
           <EpisodesDisplay key={index} {...element} />
         ))}

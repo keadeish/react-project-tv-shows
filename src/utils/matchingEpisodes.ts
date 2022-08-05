@@ -4,6 +4,10 @@ export function isMatching(
   searchTerm: string
 ): IEpisode[] {
   function oneMatchesSearchTerm(episode: IEpisode): boolean {
+    if (episode.summary === null) {
+      return false;
+    }
+
     if (
       episode.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       episode.summary.toLowerCase().includes(searchTerm.toLowerCase())

@@ -8,6 +8,7 @@ function App(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState("");
   console.log("inside the App function");
   const [episodesData, setEpisodesData] = useState<IEpisode[]>([]);
+  // const [episodeList, setEpisodeList] = useState("");
 
   useEffect(() => {
     const getAndStoreDataFromApi = async () => {
@@ -21,8 +22,20 @@ function App(): JSX.Element {
   }, []);
 
   function handleOnChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    setSearchTerm(e.target.value);
+    console.log(`https://api.tvmaze.com/shows/${e.target.value}/episodes`);
+
+    // useEffect(() => {
+    //   const getAndStoreDataFromApi = async () => {
+    //     const response = await fetch(
+    //       `https://api.tvmaze.com/shows/${e.target.value}/episodes`
+    //     );
+    //     const fetchedEpisodes: IEpisode[] = await response.json();
+    //     setEpisodesData(fetchedEpisodes);
+    //   };
+    //   getAndStoreDataFromApi();
+    // }, []);
   }
+
   const filteredEpisodes = isMatching(episodesData, searchTerm);
   return (
     <>
@@ -34,10 +47,11 @@ function App(): JSX.Element {
             </option>
           ))}
         </select>
+
         <input
           value={searchTerm}
-          onChange={(event) => {
-            setSearchTerm(event.target.value);
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
           }}
         />
         <p>
@@ -45,7 +59,8 @@ function App(): JSX.Element {
           Displaying {filteredEpisodes.length}/{episodesData.length} episodes{" "}
         </p>
       </div>
-      <div>
+
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
         {filteredEpisodes.map((element, index) => (
           <EpisodesDisplay key={index} {...element} />
         ))}

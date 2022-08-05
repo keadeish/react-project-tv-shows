@@ -21,6 +21,11 @@ function App(): JSX.Element {
     getAndStoreDataFromApi();
   }, []);
 
+  const episodesSorted = episodes.sort(function (x, y) {
+    if (x.name < y.name) return -1;
+    if (x.name > y.name) return 1;
+    return 0;
+  });
   function handleOnChange(e: React.ChangeEvent<HTMLSelectElement>) {
     console.log(`https://api.tvmaze.com/shows/${e.target.value}/episodes`);
 
@@ -43,7 +48,7 @@ function App(): JSX.Element {
     <>
       <div>
         <select onChange={handleOnChange}>
-          {episodes.map((show) => (
+          {episodesSorted.map((show) => (
             <option key={show.id} value={show.id}>
               {show.name}
             </option>

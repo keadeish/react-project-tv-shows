@@ -52,9 +52,7 @@ const filteredEpisodes = isMatching(episodesData, searchTerm);
         ))}
       </div>
       <div>
-        <p>"https://api.tvmaze.com/shows/{parseFloat(searchTerm)}/episodes"</p>
-       
-       
+        <p>https://api.tvmaze.com/shows/{parseFloat(searchTerm)}/episodes</p>
       </div>
 
       <footer>

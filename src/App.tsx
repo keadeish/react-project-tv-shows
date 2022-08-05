@@ -29,12 +29,18 @@ function App(): JSX.Element {
     setEpisodesData(fetchedEpisodes);
     setSearchTerm("");
   }
+
   const showsSorted = episodes.sort(function (x, y) {
     if (x.name < y.name) return -1;
     if (x.name > y.name) return 1;
     return 0;
   });
   const filteredEpisodes = isMatching(episodesData, searchTerm);
+
+  async function handleOnChangeEpisode(e: React.ChangeEvent<HTMLSelectElement>) {
+    setSearchTerm(e.target.value)
+
+  }
   return (
     <>
       <div style={{ display: "flex", margin: "10px" }}>
@@ -42,6 +48,14 @@ function App(): JSX.Element {
           {showsSorted.map((show) => (
             <option key={show.id} value={show.id}>
               {show.name}
+            </option>
+          ))}
+        </select>
+
+        <select onChange={handleOnChangeEpisode}>
+          {filteredEpisodes.map((episode) => (
+            <option key={episode.id} value={episode.name}>
+              {episode.name}
             </option>
           ))}
         </select>

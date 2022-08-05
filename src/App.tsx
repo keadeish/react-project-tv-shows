@@ -28,6 +28,27 @@ function App(): JSX.Element {
     const fetchedEpisodes: IEpisode[] = await response.json();
     setEpisodesData(fetchedEpisodes);
     setSearchTerm("");
+  const episodesSorted = episodes.sort(function (x, y) {
+    if (x.name < y.name) return -1;
+    if (x.name > y.name) return 1;
+    return 0;
+  });
+  function handleOnChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    console.log(`https://api.tvmaze.com/shows/${e.target.value}/episodes`);
+
+    // useEffect(() => {
+    //   const getAndStoreDataFromApi = async () => {
+    //     const response = await fetch(
+    //       `https://api.tvmaze.com/shows/${e.target.value}/episodes`
+    //     );
+    //     const fetchedEpisodes: IEpisode[] = await response.json();
+    //     setEpisodesData(fetchedEpisodes);
+    //   };
+    //   getAndStoreDataFromApi();
+    // }, []);
+  }
+
+    setSearchTerm(e.target.value);
   }
   const showsSorted = episodes.sort(function (x, y) {
     if (x.name < y.name) return -1;
@@ -40,6 +61,8 @@ function App(): JSX.Element {
       <div style={{ display: "flex", margin: "10px" }}>
         <select onChange={handleOnChange}>
           {showsSorted.map((show) => (
+
+          {episodesSorted.map((show) => (
             <option key={show.id} value={show.id}>
               {show.name}
             </option>
